@@ -76,7 +76,7 @@ export const ContactMe: React.FC<{}> = () => {
         initial="hidden"
         animate="show"
         fontSize="md"
-        exit={{ opacity: 0 }}
+        exit="hidden"
       >
         <Text>Copied email</Text><TiTick />
       </Copied>

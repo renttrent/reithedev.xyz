@@ -30,7 +30,7 @@ export const InfoGrid: React.FC<{}> = () => {
       y: 0,
       opacity: 1,
       transition: {
-        delay: 1
+        delay: 0.5
       }
     }
   }
@@ -39,6 +39,7 @@ export const InfoGrid: React.FC<{}> = () => {
       variants={gridvariants}
       initial="hidden"
       animate="show"
+      exit="hidden"
       width={{ md: "container.lg", sm: "80vw" }}
       margin="auto"
       padding="6"

@@ -17,7 +17,7 @@ export const WelcomeGrid: React.FC<{}> = () => {
     show: {
       opacity: 1,
       transition: {
-        delay: 1
+        delay: 0.5
       }
     },
     exit: {
@@ -33,7 +33,7 @@ export const WelcomeGrid: React.FC<{}> = () => {
     show: {
       x: 0,
       transition: {
-        duration: 2
+        duration: 0.7
       }
     }
   }
@@ -67,6 +67,7 @@ export const WelcomeGrid: React.FC<{}> = () => {
         variants={leftpanelvariants}
         initial="hidden"
         animate="show"
+        exit="hidden"
       >
         <Box fontSize={{ md: "3xl", base: "xl" }} fontWeight="bold">Hey this is Rei!</Box>
         <Box fontSize={{ md: "xl", base: "md" }} width="90%">I love making useful systems with beautiful designs. I am a fullstack engineer with a passion for frontend.</Box> 

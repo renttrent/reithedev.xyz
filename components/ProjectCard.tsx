@@ -39,7 +39,9 @@ export const ProjectCard: React.FC<{project: Project}> = ({ project }) => {
       whileFocus={{ rotate: '-0.2deg' }}
       variants={variants}
       initial="offscreen"
+      exit="offscreen"
       whileInView="onscreen" 
+      whileOffView="offscreen"
       margin={4}
       viewport={{ once: true }}
     >

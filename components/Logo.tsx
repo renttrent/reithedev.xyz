@@ -8,8 +8,8 @@ const Special = motion(Link)
 export const Logo: React.FC<{}> = () => {
 
   const reithedev = "rei(thedev);".split('')
-  let d = -0.1
-  const step = 0.1
+  let d = -0.03
+  const step = 0.03
 
   return (
     <Special 
