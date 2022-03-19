@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         exitBeforeEnter
         onExitComplete={() => window.scrollTo(0, 0)}
       >
-        <Logo />
+        <Logo key="logo" />
         <Component {...pageProps} />
       </AnimatePresence>
     </ChakraProvider>

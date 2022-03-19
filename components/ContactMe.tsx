@@ -55,7 +55,9 @@ export const ContactMe: React.FC<{}> = () => {
         background="none"
         _hover={{ backgroundColor: "none" }}
         _active={{ backgroundColor: "none" }}
-        _focus={{ backgroundColor: "none", color: ZIMA }}
+        _focus={{ backgroundColor: "none" }}
+        whileHover={{ color: ZIMA, transition: { duration: 0.05 } }}
+        whileFocus={{ color: ZIMA }}
         fontSize={{md: "xl", base: "lg"}}
         variants={variants}
         initial="hidden"
@@ -74,9 +76,8 @@ export const ContactMe: React.FC<{}> = () => {
         rounded="2xl"
         variants={copied_variants}
         initial="hidden"
-        animate="show"
-        fontSize="md"
-        exit="hidden"
+        animate={hover ? "show" : "hidden" }
+        fontSize={{ md: "md", base: "sm" }}
       >
         <Text>Copied email</Text><TiTick />
       </Copied>

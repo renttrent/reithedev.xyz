@@ -1,13 +1,11 @@
 import { motion } from "framer-motion"
-import { Box, Text } from "@chakra-ui/react"
+import { Box, Image, Text } from "@chakra-ui/react"
+import { Project } from "../types/general"
+import Router from "next/router"
 
 const MotionBox = motion(Box)
-
-interface Project {
-  title: string,
-  github: string,
-  content: string
-}
+const MotionImage = motion(Image)
+const MotionText = motion(Text)
 
 export const ProjectCard: React.FC<{project: Project}> = ({ project }) => {
 
@@ -24,30 +22,55 @@ export const ProjectCard: React.FC<{project: Project}> = ({ project }) => {
         type: "string",
         stiffness: 200
       }
-    }
+    },
+  }
+
+  const imagevariants = {
+    hover: {
+      filter: "none"
+    },
+  }
+
+  const textvariants = {
+    hover: {
+      opacity: 0,
+      scale: 1.03,
+      transition: {
+        duration: 0.2
+      }
+    },
+  }
+  
+  const overlayvariants = {
+    hover: {
+      opacity: 0.05,
+      transition: {
+        duration: 0.2
+      }
+    },
   }
 
   return (
     <MotionBox
-      bg="grey.100"
+      position="relative"
       shadow="md"
       rounded="lg"
-      p={4}
-      color="grey.700"
+      color="gray.100"
       cursor="pointer"
-      whileHover={{ rotate: '-0.2deg' }}
-      whileFocus={{ rotate: '-0.2deg' }}
       variants={variants}
       initial="offscreen"
       exit="offscreen"
       whileInView="onscreen" 
-      whileOffView="offscreen"
       margin={4}
       viewport={{ once: true }}
-    >
-      <Text fontWeight={700} fontSize="xl">{project.title}</Text>
-      <Text fontSize="lg" fontStyle="italic" color="red.400">{project.github}</Text>
-      <Text>{project.content}</Text>
+      whileHover="hover"
+      onClick={() => Router.push(`/project/${project.id}`)}
+    > 
+      <MotionImage variants={imagevariants} filter="blur(2px)" position="absolute" zIndex="-2" boxSize="full" objectFit="cover" src={project.thumbnail} />
+      <MotionBox variants={overlayvariants} opacity="0.95" position="absolute" width="100%" height="100%" bgGradient={`linear(to-r, gray.800, gray.700)`} rounded="lg" zIndex="-1" />
+      <MotionText variants={textvariants} paddingLeft="4" paddingTop="4" paddingBottom="1" fontWeight={700} fontSize="2xl">{project.title}</MotionText>
+      <MotionText variants={textvariants} paddingLeft="4" fontSize="md" fontStyle="italic" color="red.300">{project.link}</MotionText>
+      <MotionText variants={textvariants} padding="4">{project.description}</MotionText>
     </MotionBox>
   )
 }

@@ -82,9 +82,9 @@ export const WelcomeGrid: React.FC<{}> = () => {
           margin={{ md: "auto", base: "1"}}
           marginTop={{ md: "1", base: "7"}}
         >
-          <SpecialLink href="https://twitter.com/reithedev" color="blue.600" {...special_link_props}><IconStack><FaTwitter size="33"/><span>@reithdev</span></IconStack></SpecialLink>
-          <SpecialLink href="https://github.com/renttrent" color="grey.600" {...special_link_props}><IconStack ><FaGithub size="33"/><span>@renttrent</span></IconStack></SpecialLink>
-          <SpecialLink href="https://www.linkedin.com/in/reiballa/" color="blue.500" {...special_link_props}><IconStack ><FaLinkedin size="33"/><span>@reiballa</span></IconStack></SpecialLink>
+          <SpecialLink href="https://twitter.com/reithedev" color="blue.600" {...special_link_props}><IconStack><FaTwitter size="33"/><span>Twitter</span></IconStack></SpecialLink>
+          <SpecialLink href="https://github.com/renttrent" color="grey.600" {...special_link_props}><IconStack ><FaGithub size="33"/><span>Github</span></IconStack></SpecialLink>
+          <SpecialLink href="https://www.linkedin.com/in/reiballa/" color="blue.500" {...special_link_props}><IconStack ><FaLinkedin size="33"/><span>LinkedIn</span></IconStack></SpecialLink>
         </Flex>
       </GridItem>
     </MotionGrid>
