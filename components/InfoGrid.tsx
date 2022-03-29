@@ -35,10 +35,6 @@ export const InfoGrid: React.FC<{projects: Array<Project>}> = ({ projects }) => 
     >
       {projects.map((p) => {
         return <ProjectCard project={p} key={p.title}/>
-      })}{projects.map((p) => {
-        return <ProjectCard project={p} key={p.title}/>
-      })}{projects.map((p) => {
-        return <ProjectCard project={p} key={p.title}/>
       })}
     </MotionGrid>
     </Box>

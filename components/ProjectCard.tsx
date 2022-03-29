@@ -66,7 +66,7 @@ export const ProjectCard: React.FC<{project: Project}> = ({ project }) => {
       whileHover="hover"
       onClick={() => Router.push(`/project/${project.id}`)}
     > 
-      <MotionImage variants={imagevariants} filter="blur(2px)" position="absolute" zIndex="-2" boxSize="full" objectFit="cover" src={project.thumbnail} />
+      <MotionImage variants={imagevariants} p="1" filter="blur(2px)" position="absolute" zIndex="-2" boxSize="full" objectFit="cover" rounded="lg" src={project.thumbnail} />
       <MotionBox variants={overlayvariants} opacity="0.95" position="absolute" width="100%" height="100%" bgGradient={`linear(to-r, gray.800, gray.700)`} rounded="lg" zIndex="-1" />
       <MotionText variants={textvariants} paddingLeft="4" paddingTop="4" paddingBottom="1" fontWeight={700} fontSize="2xl">{project.title}</MotionText>
       <MotionText variants={textvariants} paddingLeft="4" fontSize="md" fontStyle="italic" color="red.300">{project.link}</MotionText>

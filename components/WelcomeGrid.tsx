@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, HStack, Link } from "@chakra-ui/react"
+import { Badge, Box, Flex, Grid, GridItem, HStack, Link } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa"
 import { ZIMA } from "../styles/theme"

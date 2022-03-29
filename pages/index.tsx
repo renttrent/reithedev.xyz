@@ -3,10 +3,9 @@ import Head from 'next/head'
 import { Background } from '../components/Background'
 import { InfoGrid } from '../components/InfoGrid'
 import { WelcomeGrid } from '../components/WelcomeGrid'
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import { SupabaseClient } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
-
-const supabaseUrl = 'https://vuoszjbifkmjeadyrrdl.supabase.co'
+import { initSupabase } from '../utils/supa.'
 
 const getProjects = async (supabase: SupabaseClient) => {
   let { data: projects, error } = await supabase.from('projects').select('*')
@@ -14,7 +13,7 @@ const getProjects = async (supabase: SupabaseClient) => {
 }
 
 const Home: NextPage<{supabaseKey: string}> = ({ supabaseKey }) => {
-  const supabase = createClient(supabaseUrl, supabaseKey)
+  const supabase = initSupabase(supabaseKey)
   const [projects, setProjects] = useState([])
   useEffect(() => {
     //@ts-ignore
@@ -34,7 +33,7 @@ export default Home
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
-      supabaseKey: process.env.SUPABASE_KEY
+      supabaseKey: process.env.SUPABASE_KEY || ""
     }
   }
 }
