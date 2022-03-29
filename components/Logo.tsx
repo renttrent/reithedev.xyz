@@ -1,9 +1,9 @@
-import { HStack, Text, Link } from "@chakra-ui/react"
+import { HStack, Text, Link as ChakraLink } from "@chakra-ui/react"
 import { AnimatePresence, motion } from "framer-motion"
 import { ZIMA } from "../styles/theme"
-
+import Link from "next/link"
 const LogoChar = motion(Text)
-const Special = motion(Link)
+const Special = motion(ChakraLink)
 
 export const Logo: React.FC<{}> = () => {
 
@@ -13,8 +13,8 @@ export const Logo: React.FC<{}> = () => {
 
   return (
     <AnimatePresence initial={true} exitBeforeEnter>
+      <Link href="/">
       <Special 
-        href="/" 
         whileFocus={{ color: ZIMA, outline: "none" }} 
         whileHover={{ color: ZIMA, outline: "none" }} 
         whileTap={{ scale: 1.01, outline: "none" }}
@@ -34,6 +34,7 @@ export const Logo: React.FC<{}> = () => {
             return <LogoChar key={Math.random()} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0, transition: { delay: d }}}>{char}</LogoChar>
           })}
       </Special>
+      </Link>
     </AnimatePresence>
   )
 }

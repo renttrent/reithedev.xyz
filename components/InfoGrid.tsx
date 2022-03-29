@@ -25,7 +25,7 @@ export const InfoGrid: React.FC<{projects: Array<Project>}> = ({ projects }) => 
   }
   return (
     <Box width={{ md: "container.lg", sm: "80vw" }} margin="auto" padding="6">
-    <MotionText variants={gridvariants} initial="hidden" animate="show" mb={6} display="flex" alignItems="center" color="grey.700" fontSize="xl">My Projects <HiArrowSmDown size="30"/></MotionText>
+    <MotionText variants={gridvariants} initial="hidden" animate="show" mb={6} display="flex" alignItems="center" color="grey.700" fontSize="xl" whileHover={{ x: 2 }} cursor="pointer">My Projects <HiArrowSmDown size="25"/></MotionText>
     <MotionGrid
       variants={gridvariants}
       initial="hidden"
