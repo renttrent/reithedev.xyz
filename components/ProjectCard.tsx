@@ -12,11 +12,11 @@ export const ProjectCard: React.FC<{project: Project}> = ({ project }) => {
   const variants = {
     offscreen: {
       opacity: 0,
-      x: Math.random() < 0.5  ? -100: 100 
+      y: 10 
     },
     onscreen: {
       opacity: 1,
-      x: 0,
+      y: 0,
       transistion: {
         duration: 1,
         type: "string",
