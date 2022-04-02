@@ -67,7 +67,9 @@ const markTheme = {
     console.log(children)
     return (
       <Box rounded="lg" m="5">
-        <SyntaxHighlighter showLineNumbers lineNumberStyle={{ color: ZIMA, borderRight: `1px solid ${ZIMA}`, marginRight: "1em" }} language="javascript" style={dracula} children={children[0].props.children} />
+        <SyntaxHighlighter showLineNumbers lineNumberStyle={{ color: ZIMA, borderRight: `1px solid ${ZIMA}`, marginRight: "1em" }} language="javascript" style={dracula}>
+          {children[0].props.children} 
+        </SyntaxHighlighter>
       </Box>
     ) 
   }
