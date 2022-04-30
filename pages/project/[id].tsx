@@ -1,13 +1,17 @@
-import { Badge, Box, HStack, Image, Stack, Text, chakra, Code } from "@chakra-ui/react";
+import { Box, HStack, Image, Stack, Text, chakra, Button, VStack, Link as ChakraLink } from "@chakra-ui/react";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
-import {  GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ZIMA } from "../../styles/theme";
 import { Project } from "../../types/general";
 import { getSupabase } from "../../utils/supa.";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { dracula } from "react-syntax-highlighter/dist/cjs/styles/hljs"
+import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism"
+import { CopyToClipboard } from "react-copy-to-clipboard"
+import { useEffect, useState } from "react";
+import { FaAngleLeft as LeftArrow } from "react-icons/fa"
 
 const normaltext = (props: any) => {
   const { children } = props
@@ -29,19 +33,19 @@ const markTheme = {
   h1: (props: any) => {
     const { children } = props
     return (
-      <Text fontSize="3xl" fontWeight="bold" color="gray.700" my="2">{children}</Text>
+      <Text fontSize={{ md: "3xl", base: "xl"}} fontWeight="bold" color="gray.700" my="2">{children}</Text>
     )
   },
   h2: (props: any) => {
     const { children } = props
     return (
-      <Text fontSize="2xl" fontWeight="bold" color="gray.700" my="2">{children}</Text>
+      <Text fontSize={{ md: "2xl", base: "lg" }} fontWeight="bold" color="gray.700" my="2">{children}</Text>
     )
   },
   h3: (props: any) => {
     const { children } = props
     return (
-      <Text fontSize="xl" fontWeight="bold" color="gray.700" my="2">{children}</Text>
+      <Text fontSize={{ md: "xl", base: "md" }} fontWeight="bold" color="gray.700" my="2">{children}</Text>
     )
   },
   strong: (props: any) => {
@@ -63,13 +67,30 @@ const markTheme = {
     )
   },
   pre: (props: any) => {
+
     const { children } = props
-    console.log(children)
+    const [copied, setCopied] = useState(false)
+
+    useEffect(() => {
+      setTimeout(() => {
+        setCopied(false)
+      }, 1000 * 10)
+    }, [copied])
+
     return (
-      <Box rounded="lg" m="5">
-        <SyntaxHighlighter showLineNumbers lineNumberStyle={{ color: ZIMA, borderRight: `1px solid ${ZIMA}`, marginRight: "1em" }} language="javascript" style={dracula}>
+      <Box rounded="lg" m="5" width="90%" position="relative">
+        <SyntaxHighlighter showLineNumbers lineNumberStyle={{ color: ZIMA, borderRight: `1px solid ${ZIMA}`, marginRight: "1em" }} language="javascript" style={vscDarkPlus}>
           {children[0].props.children} 
         </SyntaxHighlighter>
+        
+        {
+          copied ? 
+          <Button position="absolute" top="2" right="2" variant="link" colorScheme="whiteAlpha" fontSize={14} disabled>Copied</Button>
+          : 
+          <CopyToClipboard text={""} onCopy={() => setCopied(true)}>
+            <Button position="absolute" top="2" right="2" variant="link" colorScheme="whiteAlpha" fontSize={14} onClick={() => console.log(children[0].props.children)}>Copy</Button>
+          </CopyToClipboard> 
+        }
       </Box>
     ) 
   }
@@ -79,19 +100,34 @@ const Project: NextPage<{project: Project}> = ({ project }) => {
 
   const niceDate = (date: string) => {
     const d = new Date(date)
-    return d.toLocaleDateString()
+    const nicedate = `${d.toLocaleDateString("default", { month: "short" })}, ${d.toLocaleString("default", { day: "numeric" })} ${d.getFullYear()}`
+    return nicedate
   } 
 
   return (
-    <Stack mt="4" width={{ md: "container.lg", base: "sm" }} margin="auto">
-      <Text fontSize={{ md: "4xl", base: "xl" }} fontWeight="bold" align="center" color="gray.700">{project?.title}</Text>
+    <Stack mt="4" width={{ md: "container.md", base: "container.sm" }} margin="auto">
+      {/* <Text fontSize={{ md: "4xl", base: "2xl" }} fontWeight="bold" align="center" color="gray.700">{project?.title}</Text>
       <HStack alignSelf="center">
         <Badge fontSize={{ md: "md", base: "sm" }} fontWeight="medium" textAlign="center" fontStyle="italic" bg="blackAlpha.100" color={ZIMA}>{niceDate(project?.created_at || "")}</Badge>
         <Text fontSize={{ md: "xl", base: "sm" }} fontWeight="hairline" align="center">{project?.description}</Text>
-      </HStack>
+      </HStack> */}
+      <VStack align="flex-start" ml="4">
+        <Link href="/">
+          <ChakraLink _hover={{ color: ZIMA }}>
+            <HStack>
+              <LeftArrow />
+              <Text>Go back</Text>
+            </HStack>
+          </ChakraLink>
+        </Link>
+      </VStack>
       <Box alignSelf="center" h={{ md: "50vh", base: "100%" }} w={{ md: "45vw", base: ""}}><Image boxSize="full" objectFit="contain" src={project?.thumbnail} /></Box>
-      <Box width="container.sm" alignSelf="center">
-        <ReactMarkdown skipHtml components={ChakraUIRenderer(markTheme)} remarkPlugins={[remarkGfm]}>{project?.content || ""}</ReactMarkdown> 
+      <Box width={{ md: "container.md", base: "container.sm" }} alignSelf="center" p="0" paddingLeft="4" paddingRight="4">
+        <VStack align="flex-start">
+          <Text fontSize={{ md: "md", base: "sm"}} color="gray.500" fontWeight="semibold">{project.description}</Text>
+          <Text fontSize={{ md: "md", base: "sm"}} color="blue.700" fontWeight="semibold">{niceDate(project.created_at)}</Text>
+        </VStack>
+        <ReactMarkdown components={ChakraUIRenderer(markTheme)} remarkPlugins={[remarkGfm]}>{project?.content || ""}</ReactMarkdown> 
       </Box>
     </Stack>
   )

@@ -33,7 +33,7 @@ export const InfoGrid: React.FC<{projects: Array<Project>}> = ({ projects }) => 
       exit="hidden"
       gridTemplateColumns={{ md: "repeat(2, 1fr)", base: "repeat(1, 1fr)" }}
     >
-      {projects.map((p) => {
+      {projects && projects.map((p) => {
         return <ProjectCard project={p} key={p.title}/>
       })}
     </MotionGrid>
