@@ -1,13 +1,14 @@
-import { Badge, Box, Flex, Grid, GridItem, HStack, Link } from "@chakra-ui/react"
+import { Badge, Box, Flex, Grid, GridItem, HStack, Link as ChakraLink } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa"
 import { ZIMA } from "../styles/theme"
 import { ContactMe } from "./ContactMe"
+import Link from "next/link"
 
 const MotionGrid = motion(Grid)
 const LeftPanel = motion(GridItem)
 const IconStack = motion(HStack)
-const SpecialLink = motion(Link)
+const SpecialLink = motion(ChakraLink)
 
 export const WelcomeGrid: React.FC<{}> = () => {
   const gridvariants = {
@@ -86,6 +87,13 @@ export const WelcomeGrid: React.FC<{}> = () => {
           <SpecialLink href="https://github.com/renttrent" color="grey.600" {...special_link_props}><IconStack ><FaGithub size="33"/><span>Github</span></IconStack></SpecialLink>
           <SpecialLink href="https://www.linkedin.com/in/reiballa/" color="blue.500" {...special_link_props}><IconStack ><FaLinkedin size="33"/><span>LinkedIn</span></IconStack></SpecialLink>
         </Flex>
+      </GridItem>
+      <GridItem mt="10" backgroundColor="blue.50" colSpan={2} p="2" width="max">
+        <SpecialLink {...special_link_props}>
+          <Link href="https://blog.reithedev.xyz">
+            <span>Read my blog</span>
+          </Link>
+        </SpecialLink>
       </GridItem>
     </MotionGrid>
   )
