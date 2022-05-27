@@ -19,23 +19,47 @@ interface contextValue {
 }
 const CopiedContext = createContext<contextValue>({ copied: false, setCopied: () => console.log("test") })
 
-const normaltext = (props: any) => {
+const NormalText = (props: any) => {
   const { children } = props
   return (
     <Box fontSize="1.2em" color="gray.700">{children}</Box>
   )
 }
 
-const litext = (props: any) => {
+const LiText = (props: any) => {
   const { children } = props
   return (
     <Box fontSize="1.2em" color="gray.700" _before={{ content: "'- '" }}>{children}</Box>
   )
 }
 
+const Code = (props: any) => {
+
+  const { children } = props
+  const { copied, setCopied } = useContext(CopiedContext)
+
+  return (
+    <Box rounded="lg" m="5" width="90%" position="relative">
+      <SyntaxHighlighter showLineNumbers lineNumberStyle={{ color: ZIMA, borderRight: `1px solid ${ZIMA}`, marginRight: "1em" }} language="javascript" style={vscDarkPlus}>
+        {children[0].props.children}
+      </SyntaxHighlighter>
+
+      {
+        copied ?
+          <Button position="absolute" top="2" right="2" variant="link" colorScheme="whiteAlpha" fontSize={14} disabled>Copied</Button>
+          :
+          <CopyToClipboard text={children[0].props.children.toString()} onCopy={() => setCopied(true)}>
+            <Button position="absolute" top="2" right="2" variant="link" colorScheme="whiteAlpha" fontSize={14}>Copy</Button>
+          </CopyToClipboard>
+      }
+    </Box>
+  )
+}
+
+
 const markTheme = {
-  p: normaltext,
-  li: litext,
+  p: NormalText,
+  li: LiText,
   h1: (props: any) => {
     const { children } = props
     return (
@@ -72,28 +96,7 @@ const markTheme = {
       <chakra.span fontFamily="monospace" fontSize="lg" bg="gray.400" color="white" p="1" rounded="sm">{children}</chakra.span>
     )
   },
-  pre: (props: any) => {
-
-    const { children } = props
-    const { copied, setCopied } = useContext(CopiedContext)
-
-    return (
-      <Box rounded="lg" m="5" width="90%" position="relative">
-        <SyntaxHighlighter showLineNumbers lineNumberStyle={{ color: ZIMA, borderRight: `1px solid ${ZIMA}`, marginRight: "1em" }} language="javascript" style={vscDarkPlus}>
-          {children[0].props.children}
-        </SyntaxHighlighter>
-
-        {
-          copied ?
-            <Button position="absolute" top="2" right="2" variant="link" colorScheme="whiteAlpha" fontSize={14} disabled>Copied</Button>
-            :
-            <CopyToClipboard text={children[0].props.children.toString()} onCopy={() => setCopied(true)}>
-              <Button position="absolute" top="2" right="2" variant="link" colorScheme="whiteAlpha" fontSize={14}>Copy</Button>
-            </CopyToClipboard>
-        }
-      </Box>
-    )
-  }
+  pre: Code
 }
 
 const isCopied = (e: Event) => {
